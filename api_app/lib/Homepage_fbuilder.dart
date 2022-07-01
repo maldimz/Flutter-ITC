@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:api_app/model/User.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -11,7 +12,7 @@ class HomepageFbuilder extends StatefulWidget {
 }
 
 class _HomepageFbuilderState extends State<HomepageFbuilder> {
-  List allData = [];
+  List<User> allData = [];
 
   Future _getData() async{
     try {
@@ -21,7 +22,7 @@ class _HomepageFbuilderState extends State<HomepageFbuilder> {
       List data = (json.decode(response.body) as Map<String, dynamic>)['data'];
       print(data);
       data.forEach((element) {
-        allData.add(element);
+        allData.add(User.fromJson(element));
       });
     } catch (e) {
     }
@@ -45,10 +46,10 @@ class _HomepageFbuilderState extends State<HomepageFbuilder> {
               itemCount: allData.length,
               itemBuilder: (context, index) => ListTile(
                 leading: CircleAvatar(
-                  backgroundImage: NetworkImage(allData[index]['avatar']),
+                  backgroundImage: NetworkImage(allData[index].avatar),
                 ),
-                title: Text("${allData[index]['first_name']} ${allData[index]['last_name']}"),
-                subtitle: Text(allData[index]['email']),
+                title: Text("${allData[index].firstName} ${allData[index].lastName}"),
+                subtitle: Text(allData[index].email),
               ),
             );
           }    
