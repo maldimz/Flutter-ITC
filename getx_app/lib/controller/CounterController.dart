@@ -8,4 +8,12 @@ class CounterController extends GetxController{
   decrement() => count--;
 
   changeTheme() => darkTheme.value = !darkTheme.value;
+
+  @override
+  void onInit() {
+    print("OnInit");
+
+    interval(count, (_) => print("Perintah Search APi : sss"), time: Duration(seconds: 1));;
+    super.onInit();
+  }
 }
